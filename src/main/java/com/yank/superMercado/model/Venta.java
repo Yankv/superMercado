@@ -3,6 +3,7 @@ package com.yank.superMercado.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,6 +17,7 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Venta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
