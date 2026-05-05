@@ -21,4 +21,3 @@ public class VentaDto {
     // Lista de detalles de venta
     private List<DetalleVentaDto> detalles;
 }
-    

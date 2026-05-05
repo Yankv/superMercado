@@ -8,7 +8,12 @@ import org.springframework.stereotype.Repository;
 import com.yank.superMercado.model.Producto;
 
 @Repository
-public interface ProdcutoRepository extends JpaRepository<Producto, Long> {
-    // Método para buscar un producto por su nombre
+public interface ProductoRepository extends JpaRepository<Producto, Long> {
+    /**
+     * Obtiene un producto por su nombre
+     * 
+     * @param nombre
+     * @return Optional<Producto>
+     */
     Optional<Producto> findByNombre(String nombre);
 }
