@@ -29,14 +29,6 @@ public interface IProductoService {
     ProductoDto obtenerProductoPorId(Long id);
 
     /**
-     * Obtiene un producto por su nombre.
-     * 
-     * @param nombre Nombre del producto a buscar.
-     * @return Producto encontrado.
-     */
-    ProductoDto obtenerProductoPorNombre(String nombre);
-
-    /**
      * Actualiza un producto existente.
      * 
      * @param id ID del producto a actualizar.

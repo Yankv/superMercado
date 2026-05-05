@@ -1,5 +1,6 @@
 package com.yank.superMercado.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SucursalDto {
     private Long id;
+
+    @NotBlank(message = "El nombre de la sucursal no puede estar vacío")
     private String nombre;
+
+    @NotBlank(message = "La dirección de la sucursal no puede estar vacía")
     private String direccion;
 }

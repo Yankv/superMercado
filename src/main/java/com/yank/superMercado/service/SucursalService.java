@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.yank.superMercado.dto.SucursalDto;
+import com.yank.superMercado.exception.NotFoundException;
 import com.yank.superMercado.mapper.SucursalMapper;
 import com.yank.superMercado.model.Sucursal;
 import com.yank.superMercado.repository.SucursalRepository;
@@ -26,7 +27,7 @@ public class SucursalService implements ISucursalService {
     }
 
     @Override
-    public List<SucursalDto> traerSucursales() {
+    public List<SucursalDto> obtenerSucursales() {
         // Obtener todas las sucursales de la base de datos
         List<Sucursal> sucursales = repository.findAll();
         // Mapear y retornar las sucursales a DTOs
@@ -34,10 +35,10 @@ public class SucursalService implements ISucursalService {
     }
 
     @Override
-    public SucursalDto traerSucursalPorId(Long id) {
+    public SucursalDto obtenerSucursalPorId(Long id) {
         // Obtener la sucursal por ID
         Sucursal sucursal = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No se encontró sucursal con ID: " + id));
+                .orElseThrow(() -> new NotFoundException("No se encontró sucursal con ID: " + id));
         // Mapear y retornar el DTO
         return mapper.toDto(sucursal);
     }
@@ -46,7 +47,7 @@ public class SucursalService implements ISucursalService {
     public SucursalDto actualizarSucursal(Long id, SucursalDto sucursalDto) {
         // Obtener la sucursal por ID
         Sucursal sucursalExistente = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No se encontró sucursal con ID: " + id));
+                .orElseThrow(() -> new NotFoundException("No se encontró sucursal con ID: " + id));
 
         // Actualizar los datos de la sucursal
         sucursalExistente.setNombre(sucursalDto.getNombre());
@@ -60,7 +61,7 @@ public class SucursalService implements ISucursalService {
     public void eliminarSucursal(Long id) {
         // Verificar si existe la sucursal a eliminar
         if (!repository.existsById(id)) {
-            throw new RuntimeException("No se encontró sucursal con ID: " + id);
+            throw new NotFoundException("No se encontró sucursal con ID: " + id);
         }
 
         // Si existe, eliminar la sucursal

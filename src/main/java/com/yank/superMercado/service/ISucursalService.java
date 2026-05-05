@@ -18,7 +18,7 @@ public interface ISucursalService {
      * 
      * @return Una lista con todas las sucursales.
      */
-    List<SucursalDto> traerSucursales();
+    List<SucursalDto> obtenerSucursales();
 
     /**
      * Obtiene una sucursal por su ID.
@@ -26,7 +26,7 @@ public interface ISucursalService {
      * @param id El ID de la sucursal.
      * @return La sucursal encontrada o null si no se encuentra.
      */
-    SucursalDto traerSucursalPorId(Long id);
+    SucursalDto obtenerSucursalPorId(Long id);
 
     /**
      * Actualiza los datos de una sucursal existente.
