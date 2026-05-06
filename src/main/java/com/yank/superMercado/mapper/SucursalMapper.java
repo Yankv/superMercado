@@ -3,6 +3,7 @@ package com.yank.superMercado.mapper;
 import java.util.List;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import com.yank.superMercado.dto.SucursalDto;
 import com.yank.superMercado.model.Sucursal;
@@ -15,6 +16,7 @@ public interface SucursalMapper {
      * @param dto
      * @return Sucursal
      */
+    @Mapping(target = "ventas", ignore = true)
     Sucursal toEntity(SucursalDto dto);
 
     /**

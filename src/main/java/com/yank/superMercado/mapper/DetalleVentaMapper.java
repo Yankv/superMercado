@@ -29,7 +29,8 @@ public interface DetalleVentaMapper {
      * @param entity
      * @return DetalleVentaDto
      */
-    @Mapping(source = "producto.nombre", target = "productoNombre") // Mapea el nombre del producto al campo productoNombre del DTO
+    @Mapping(source = "producto.id", target = "productoId") // Mapea el ID del producto al campo productoId del DTO
+    @Mapping(source = "producto.nombre", target = "nombreProducto") // Mapea el nombre del producto al campo nombreProducto del DTO
     @Mapping(target = "subTotal", ignore = true) // Ignora el campo subtotal, se calculará en el servicio
     DetalleVentaDto toDto(DetalleVenta entity);
 

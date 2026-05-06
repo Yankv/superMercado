@@ -3,6 +3,7 @@ package com.yank.superMercado.mapper;
 import java.util.List;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import com.yank.superMercado.dto.ProductoDto;
 import com.yank.superMercado.model.Producto;
@@ -15,6 +16,7 @@ public interface ProductoMapper {
      * @param dto
      * @return Producto
      */
+    @Mapping(target = "detallesVenta", ignore = true)
     Producto toEntity(ProductoDto dto);
 
     /**

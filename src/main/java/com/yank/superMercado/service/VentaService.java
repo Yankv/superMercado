@@ -41,10 +41,10 @@ public class VentaService implements IVentaService {
                     .map(detalleDto -> {
                         DetalleVenta detalle = detalleVentaMapper.toEntity(detalleDto);
 
-                        // Buscar el producto por su nombre
-                        Producto producto = productoRepository.findByNombre(detalleDto.getProductoNombre())
+                        // Buscar el producto por su ID
+                        Producto producto = productoRepository.findById(detalleDto.getProductoId())
                                 .orElseThrow(() -> new NotFoundException(
-                                        "No se encontró el producto con nombre: " + detalleDto.getProductoNombre()));
+                                        "No se encontró el producto con ID: " + detalleDto.getProductoId()));
 
                         detalle.setProducto(producto); // Asignar el producto al detalle
                         detalle.setVenta(venta); // Asignar la venta al detalle
@@ -78,6 +78,15 @@ public class VentaService implements IVentaService {
         // Verificar si existe la venta a actualizar
         var ventaExistente = ventaRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("No se encontró la venta con ID: " + id));
+
+        if (ventaDto.getIdSucursal() != null) {
+            // Obtener la sucursal por su ID y asignarla a la venta
+            var sucursal = sucursalRepository.findById(ventaDto.getIdSucursal())
+                    .orElseThrow(
+                            () -> new NotFoundException(
+                                    "No se encontró la sucursal con ID: " + ventaDto.getIdSucursal()));
+            ventaExistente.setSucursal(sucursal);
+        }
 
         // Mapear los campos actualizables del DTO a la entidad existente
         ventaExistente.setFecha(ventaDto.getFecha());
