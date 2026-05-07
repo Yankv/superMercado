@@ -1,5 +1,6 @@
 package com.yank.superMercado.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.yank.superMercado.dto.VentaDto;
@@ -27,6 +28,15 @@ public interface IVentaService {
      * @return La venta encontrada o null si no se encuentra.
      */
     VentaDto obtenerVentaPorId(Long id);
+
+    /**
+     * Obtiene las ventas de una sucursal en una fecha específica.
+     * 
+     * @param sucursalId El ID de la sucursal.
+     * @param fecha      La fecha de las ventas.
+     * @return Una lista con las ventas encontradas.
+     */
+    List<VentaDto> obtenerVentasPorSucursalYFecha(Long sucursalId, LocalDate fecha);
 
     /**
      * Actualiza los datos de una venta existente.

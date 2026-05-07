@@ -1,5 +1,6 @@
 package com.yank.superMercado.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -71,6 +72,16 @@ public class VentaService implements IVentaService {
         var venta = ventaRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("No se encontró la venta con ID: " + id));
         return ventaMapper.toDto(venta);
+    }
+
+    @Override
+    public List<VentaDto> obtenerVentasPorSucursalYFecha(Long sucursalId, LocalDate fecha) {
+        var ventas = ventaRepository.findBySucursalIdAndFecha(sucursalId, fecha);
+        if (ventas.isEmpty()) {
+            throw new NotFoundException(
+                    "No se encontraron ventas para la sucursal con ID: " + sucursalId + " en la fecha: " + fecha);
+        }
+        return ventaMapper.toDtoList(ventas);
     }
 
     @Override
