@@ -3,6 +3,7 @@ package com.yank.superMercado.dto;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class VentaDto {
     private Long idSucursal;
 
     // Lista de detalles de venta
+    @Valid
     @NotNull(message = "La lista de detalles de venta no puede ser nula")
     private List<DetalleVentaDto> detalles;
 }
