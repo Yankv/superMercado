@@ -3,6 +3,8 @@ package com.yank.superMercado.dto;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.yank.superMercado.enums.EstadoVenta;
+
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,7 +23,7 @@ public class VentaDto {
     private LocalDate fecha;
 
     @NotBlank(message = "El estado de la venta no puede estar vacío")
-    private String estado;
+    private EstadoVenta estado;
 
     private Double total;
 

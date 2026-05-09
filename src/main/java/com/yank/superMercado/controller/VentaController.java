@@ -34,7 +34,7 @@ public class VentaController {
                 .body(venta);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/todos")
     public ResponseEntity<List<VentaDto>> obtenerVentas() {
         List<VentaDto> ventas = ventaService.obtenerVentas();
         return ResponseEntity.ok(ventas);
