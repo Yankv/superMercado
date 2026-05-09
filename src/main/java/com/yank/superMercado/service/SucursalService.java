@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.yank.superMercado.dto.SucursalDto;
+import com.yank.superMercado.dto.request.SucursalRequest;
+import com.yank.superMercado.dto.response.SucursalResponse;
 import com.yank.superMercado.exception.NotFoundException;
 import com.yank.superMercado.mapper.SucursalMapper;
 import com.yank.superMercado.model.Sucursal;
@@ -19,7 +20,7 @@ public class SucursalService implements ISucursalService {
     private final SucursalMapper mapper;
 
     @Override
-    public SucursalDto crearSucursal(SucursalDto sucursalDto) {
+    public SucursalResponse crearSucursal(SucursalRequest sucursalDto) {
         // Mapear el DTO a la entidad
         Sucursal sucursal = mapper.toEntity(sucursalDto);
         // Guardar, mapear y retornar la sucursal
@@ -27,7 +28,7 @@ public class SucursalService implements ISucursalService {
     }
 
     @Override
-    public List<SucursalDto> obtenerSucursales() {
+    public List<SucursalResponse> obtenerSucursales() {
         // Obtener todas las sucursales de la base de datos
         List<Sucursal> sucursales = repository.findAll();
         // Mapear y retornar las sucursales a DTOs
@@ -35,7 +36,7 @@ public class SucursalService implements ISucursalService {
     }
 
     @Override
-    public SucursalDto obtenerSucursalPorId(Long id) {
+    public SucursalResponse obtenerSucursalPorId(Long id) {
         // Obtener la sucursal por ID
         Sucursal sucursal = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("No se encontró sucursal con ID: " + id));
@@ -44,7 +45,7 @@ public class SucursalService implements ISucursalService {
     }
 
     @Override
-    public SucursalDto actualizarSucursal(Long id, SucursalDto sucursalDto) {
+    public SucursalResponse actualizarSucursal(Long id, SucursalRequest sucursalDto) {
         // Obtener la sucursal por ID
         Sucursal sucursalExistente = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("No se encontró sucursal con ID: " + id));

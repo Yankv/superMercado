@@ -2,7 +2,8 @@ package com.yank.superMercado.service;
 
 import java.util.List;
 
-import com.yank.superMercado.dto.SucursalDto;
+import com.yank.superMercado.dto.request.SucursalRequest;
+import com.yank.superMercado.dto.response.SucursalResponse;
 
 public interface ISucursalService {
     /**
@@ -11,14 +12,14 @@ public interface ISucursalService {
      * @param sucursalDto Los datos de la sucursal a crear.
      * @return La sucursal creada.
      */
-    SucursalDto crearSucursal(SucursalDto sucursalDto);
+    SucursalResponse crearSucursal(SucursalRequest sucursalDto);
 
     /**
      * Obtiene todas las sucursales.
      * 
      * @return Una lista con todas las sucursales.
      */
-    List<SucursalDto> obtenerSucursales();
+    List<SucursalResponse> obtenerSucursales();
 
     /**
      * Obtiene una sucursal por su ID.
@@ -26,7 +27,7 @@ public interface ISucursalService {
      * @param id El ID de la sucursal.
      * @return La sucursal encontrada o null si no se encuentra.
      */
-    SucursalDto obtenerSucursalPorId(Long id);
+    SucursalResponse obtenerSucursalPorId(Long id);
 
     /**
      * Actualiza los datos de una sucursal existente.
@@ -35,7 +36,7 @@ public interface ISucursalService {
      * @param sucursalDto Los nuevos datos de la sucursal.
      * @return La sucursal actualizada.
      */
-    SucursalDto actualizarSucursal(Long id, SucursalDto sucursalDto);
+    SucursalResponse actualizarSucursal(Long id, SucursalRequest sucursalDto);
 
     /**
      * Elimina una sucursal por su ID.

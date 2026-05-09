@@ -1,4 +1,4 @@
-package com.yank.superMercado.dto;
+package com.yank.superMercado.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -9,9 +9,7 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SucursalDto {
-    private Long id;
-
+public class SucursalRequest {
     @NotBlank(message = "El nombre de la sucursal no puede estar vacío")
     private String nombre;
 

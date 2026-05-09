@@ -5,33 +5,39 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.yank.superMercado.dto.SucursalDto;
+import com.yank.superMercado.dto.request.SucursalRequest;
+import com.yank.superMercado.dto.response.SucursalResponse;
 import com.yank.superMercado.model.Sucursal;
 
 @Mapper(componentModel = "spring")
 public interface SucursalMapper {
     /**
-     * Convierte una SucursalDto en una Sucursal
+     * Convierte un objeto SucursalRequest en una entidad Sucursal.
+     * Los campos ventas e id se ignoran ya que se manejan por separado
+     * en el proceso de creación o actualización.
      * 
-     * @param dto
-     * @return Sucursal
+     * @param dto El objeto SucursalRequest que contiene los datos de entrada.
+     * @return La entidad Sucursal resultante de la conversión.
      */
     @Mapping(target = "ventas", ignore = true)
-    Sucursal toEntity(SucursalDto dto);
+    @Mapping(target = "id", ignore = true)
+    Sucursal toEntity(SucursalRequest dto);
 
     /**
-     * Convierte una Sucursal en una SucursalDto
+     * Convierte una entidad Sucursal en un objeto SucursalResponse.
+     * Realiza un mapeo directo de los campos correspondientes.
      * 
-     * @param entity
-     * @return SucursalDto
+     * @param entity La entidad Sucursal que se va a convertir.
+     * @return El objeto SucursalResponse resultante.
      */
-    SucursalDto toDto(Sucursal entity);
+    SucursalResponse toDto(Sucursal entity);
 
     /**
-     * Convierte una lista de Sucursal a una lista de SucursalDto
+     * Convierte una lista de entidades Sucursal en una lista de objetos SucursalResponse.
+     * Aplica la conversión individual a cada elemento de la lista.
      * 
-     * @param entities
-     * @return List<SucursalDto>
+     * @param entities La lista de entidades Sucursal a convertir.
+     * @return La lista de objetos SucursalResponse resultantes.
      */
-    List<SucursalDto> toDtoList(List<Sucursal> entities);
+    List<SucursalResponse> toDtoList(List<Sucursal> entities);
 }

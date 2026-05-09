@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yank.superMercado.dto.SucursalDto;
+import com.yank.superMercado.dto.request.SucursalRequest;
+import com.yank.superMercado.dto.response.SucursalResponse;
 import com.yank.superMercado.service.ISucursalService;
 
 import jakarta.validation.Valid;
@@ -26,19 +27,19 @@ public class SucursalController {
     private final ISucursalService sucursalService;
 
     @PostMapping
-    public ResponseEntity<SucursalDto> crearSucursal(@Valid @RequestBody SucursalDto sucursalDto) {
-        SucursalDto sucursal = sucursalService.crearSucursal(sucursalDto);
+    public ResponseEntity<SucursalResponse> crearSucursal(@Valid @RequestBody SucursalRequest sucursalDto) {
+        SucursalResponse sucursal = sucursalService.crearSucursal(sucursalDto);
         return ResponseEntity.created(URI.create("/api/" + sucursal.getId()))
                 .body(sucursal);
     }
 
     @GetMapping
-    public ResponseEntity<List<SucursalDto>> obtenerSucursales() {
+    public ResponseEntity<List<SucursalResponse>> obtenerSucursales() {
         return ResponseEntity.ok(sucursalService.obtenerSucursales());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SucursalDto> obtenerSucursalPorId(@PathVariable Long id) {
+    public ResponseEntity<SucursalResponse> obtenerSucursalPorId(@PathVariable Long id) {
         return ResponseEntity.ok(sucursalService.obtenerSucursalPorId(id));
     }
 
@@ -49,9 +50,9 @@ public class SucursalController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SucursalDto> actualizarSucursal(@PathVariable Long id,
-            @Valid @RequestBody SucursalDto sucursalDto) {
-        SucursalDto sucursalActualizada = sucursalService.actualizarSucursal(id, sucursalDto);
+    public ResponseEntity<SucursalResponse> actualizarSucursal(@PathVariable Long id,
+            @Valid @RequestBody SucursalRequest sucursalDto) {
+        SucursalResponse sucursalActualizada = sucursalService.actualizarSucursal(id, sucursalDto);
         return ResponseEntity.ok(sucursalActualizada);
     }
 }
