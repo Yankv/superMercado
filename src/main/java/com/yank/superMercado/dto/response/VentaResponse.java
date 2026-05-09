@@ -3,7 +3,6 @@ package com.yank.superMercado.dto.response;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.yank.superMercado.dto.DetalleVentaDto;
 import com.yank.superMercado.enums.EstadoVenta;
 
 import lombok.AllArgsConstructor;
@@ -25,5 +24,5 @@ public class VentaResponse {
 
     private String nombreSucursal;
 
-    private List<DetalleVentaDto> detalles;
+    private List<DetalleVentaResponse> detalles;
 }

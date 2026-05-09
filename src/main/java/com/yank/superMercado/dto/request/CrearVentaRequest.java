@@ -3,7 +3,6 @@ package com.yank.superMercado.dto.request;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.yank.superMercado.dto.DetalleVentaDto;
 import com.yank.superMercado.enums.EstadoVenta;
 
 import jakarta.validation.Valid;
@@ -32,5 +31,5 @@ public class CrearVentaRequest {
     // Lista de detalles de venta
     @Valid
     @NotNull(message = "La lista de detalles de venta no puede ser nula")
-    private List<DetalleVentaDto> detalles;
+    private List<DetalleVentaRequest> detalles;
 }

@@ -7,7 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-import com.yank.superMercado.dto.DetalleVentaDto;
+import com.yank.superMercado.dto.request.DetalleVentaRequest;
+import com.yank.superMercado.dto.response.DetalleVentaResponse;
 import com.yank.superMercado.model.DetalleVenta;
 
 @Mapper(componentModel = "spring")
@@ -21,7 +22,8 @@ public interface DetalleVentaMapper {
     // Se ignoran los campos que no existen en el DTO
     @Mapping(target = "producto", ignore = true)
     @Mapping(target = "venta", ignore = true)
-    DetalleVenta toEntity(DetalleVentaDto dto);
+    @Mapping(target = "id", ignore = true)
+    DetalleVenta toEntity(DetalleVentaRequest dto);
 
     /**
      * Convierte un DetalleVenta a un DetalleVentaDto
@@ -29,10 +31,9 @@ public interface DetalleVentaMapper {
      * @param entity
      * @return DetalleVentaDto
      */
-    @Mapping(source = "producto.id", target = "productoId") // Mapea el ID del producto al campo productoId del DTO
     @Mapping(source = "producto.nombre", target = "nombreProducto") // Mapea el nombre del producto al campo nombreProducto del DTO
     @Mapping(target = "subTotal", ignore = true) // Ignora el campo subtotal, se calculará en el servicio
-    DetalleVentaDto toDto(DetalleVenta entity);
+    DetalleVentaResponse toDto(DetalleVenta entity);
 
     /**
      * Convierte una lista de DetalleVenta a una lista de DetalleVentaDto
@@ -40,11 +41,11 @@ public interface DetalleVentaMapper {
      * @param entities
      * @return List<DetalleVentaDto>
      */
-    List<DetalleVentaDto> toDtoList(List<DetalleVenta> entities);
+    List<DetalleVentaResponse> toDtoList(List<DetalleVenta> entities);
 
     // Método para calcular el subtotal después de mapear el detalle de venta a su DTO
     @AfterMapping
-    default void calcularSubtotal(DetalleVenta detalle, @MappingTarget DetalleVentaDto dto) {
+    default void calcularSubtotal(DetalleVenta detalle, @MappingTarget DetalleVentaResponse dto) {
         if (detalle.getProducto() != null) {
             dto.setSubTotal(detalle.getCantidad() * detalle.getPrecioUnitario());
         }
