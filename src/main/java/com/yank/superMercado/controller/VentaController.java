@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yank.superMercado.dto.VentaDto;
+import com.yank.superMercado.dto.request.ActualizarVentaRequest;
+import com.yank.superMercado.dto.request.CrearVentaRequest;
+import com.yank.superMercado.dto.response.VentaResponse;
 import com.yank.superMercado.service.IVentaService;
 
 import jakarta.validation.Valid;
@@ -28,34 +30,34 @@ public class VentaController {
     private final IVentaService ventaService;
 
     @PostMapping
-    public ResponseEntity<VentaDto> crearVenta(@Valid @RequestBody VentaDto ventaDto) {
-        VentaDto venta = ventaService.crearVenta(ventaDto);
+    public ResponseEntity<VentaResponse> crearVenta(@Valid @RequestBody CrearVentaRequest ventaDto) {
+        VentaResponse venta = ventaService.crearVenta(ventaDto);
         return ResponseEntity.created(URI.create("/api/ventas/" + venta.getId()))
                 .body(venta);
     }
 
     @GetMapping("/todos")
-    public ResponseEntity<List<VentaDto>> obtenerVentas() {
-        List<VentaDto> ventas = ventaService.obtenerVentas();
+    public ResponseEntity<List<VentaResponse>> obtenerVentas() {
+        List<VentaResponse> ventas = ventaService.obtenerVentas();
         return ResponseEntity.ok(ventas);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<VentaDto> obtenerVentaPorId(@PathVariable Long id) {
+    public ResponseEntity<VentaResponse> obtenerVentaPorId(@PathVariable Long id) {
         return ResponseEntity.ok(ventaService.obtenerVentaPorId(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<VentaDto>> obtenerVentasPorSucursalYFecha(
+    public ResponseEntity<List<VentaResponse>> obtenerVentasPorSucursalYFecha(
             @RequestParam Long sucursalId,
             @RequestParam LocalDate fecha) {
-        List<VentaDto> ventas = ventaService.obtenerVentasPorSucursalYFecha(sucursalId, fecha);
+        List<VentaResponse> ventas = ventaService.obtenerVentasPorSucursalYFecha(sucursalId, fecha);
         return ResponseEntity.ok(ventas);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VentaDto> actualizarVenta(@PathVariable Long id,
-            @Valid @RequestBody VentaDto ventaDto) {
+    public ResponseEntity<VentaResponse> actualizarVenta(@PathVariable Long id,
+            @Valid @RequestBody ActualizarVentaRequest ventaDto) {
         return ResponseEntity.ok(ventaService.actualizarVenta(id, ventaDto));
     }
 

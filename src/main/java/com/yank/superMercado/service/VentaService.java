@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.yank.superMercado.dto.VentaDto;
+import com.yank.superMercado.dto.request.ActualizarVentaRequest;
+import com.yank.superMercado.dto.request.CrearVentaRequest;
+import com.yank.superMercado.dto.response.VentaResponse;
 import com.yank.superMercado.enums.EstadoVenta;
 import com.yank.superMercado.exception.NotFoundException;
 import com.yank.superMercado.mapper.DetalleVentaMapper;
@@ -29,7 +31,7 @@ public class VentaService implements IVentaService {
     private final DetalleVentaMapper detalleVentaMapper;
 
     @Override
-    public VentaDto crearVenta(VentaDto ventaDto) {
+    public VentaResponse crearVenta(CrearVentaRequest ventaDto) {
         // Mapear el DTO a la entidad
         var venta = ventaMapper.toEntity(ventaDto);
         // Obtener la sucursal por su ID y asignarla a la venta
@@ -63,7 +65,7 @@ public class VentaService implements IVentaService {
     }
 
     @Override
-    public List<VentaDto> obtenerVentas() {
+    public List<VentaResponse> obtenerVentas() {
         // Obtener todas las ventas de la base de datos, mapearlas a DTOs y retornarlas
         List<Venta> ventas = ventaRepository.findAll();
 
@@ -75,7 +77,7 @@ public class VentaService implements IVentaService {
     }
 
     @Override
-    public VentaDto obtenerVentaPorId(Long id) {
+    public VentaResponse obtenerVentaPorId(Long id) {
         // Obtener la venta por su ID, mapearla a un DTO y retornarla
         var venta = ventaRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("No se encontró la venta con ID: " + id));
@@ -83,7 +85,7 @@ public class VentaService implements IVentaService {
     }
 
     @Override
-    public List<VentaDto> obtenerVentasPorSucursalYFecha(Long sucursalId, LocalDate fecha) {
+    public List<VentaResponse> obtenerVentasPorSucursalYFecha(Long sucursalId, LocalDate fecha) {
         var ventas = ventaRepository.buscarPorSucursalIdYFecha(sucursalId, fecha);
         if (ventas.isEmpty()) {
             throw new NotFoundException(
@@ -93,7 +95,7 @@ public class VentaService implements IVentaService {
     }
 
     @Override
-    public VentaDto actualizarVenta(Long id, VentaDto ventaDto) {
+    public VentaResponse actualizarVenta(Long id, ActualizarVentaRequest ventaDto) {
         // Verificar si existe la venta a actualizar
         var ventaExistente = ventaRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("No se encontró la venta con ID: " + id));
@@ -109,7 +111,7 @@ public class VentaService implements IVentaService {
 
         // Mapear los campos actualizables del DTO a la entidad existente
         ventaExistente.setFecha(ventaDto.getFecha());
-        ventaExistente.setTotal(ventaDto.getTotal());
+        ventaExistente.setEstado(ventaDto.getEstado());
 
         // Guardar la venta actualizada en la base de datos y retornar el DTO resultante
         return ventaMapper.toDto(ventaRepository.save(ventaExistente));

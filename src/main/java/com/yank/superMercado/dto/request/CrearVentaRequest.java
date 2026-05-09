@@ -1,12 +1,12 @@
-package com.yank.superMercado.dto;
+package com.yank.superMercado.dto.request;
 
 import java.time.LocalDate;
 import java.util.List;
 
+import com.yank.superMercado.dto.DetalleVentaDto;
 import com.yank.superMercado.enums.EstadoVenta;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,13 +16,11 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class VentaDto {
-    private Long id;
-
-    @NotNull(message = "La fecha de la venta no puede estar vacía")
+public class CrearVentaRequest {
+    @NotNull(message = "La fecha de la venta no puede estar nulo")
     private LocalDate fecha;
 
-    @NotBlank(message = "El estado de la venta no puede estar vacío")
+    @NotNull(message = "El estado de la venta no puede ser nulo")
     private EstadoVenta estado;
 
     private Double total;

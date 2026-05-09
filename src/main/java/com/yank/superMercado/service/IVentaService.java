@@ -3,7 +3,9 @@ package com.yank.superMercado.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.yank.superMercado.dto.VentaDto;
+import com.yank.superMercado.dto.request.ActualizarVentaRequest;
+import com.yank.superMercado.dto.request.CrearVentaRequest;
+import com.yank.superMercado.dto.response.VentaResponse;
 
 public interface IVentaService {
     /**
@@ -12,14 +14,14 @@ public interface IVentaService {
      * @param ventaDto
      * @return La venta creada.
      */
-    VentaDto crearVenta(VentaDto ventaDto);
+    VentaResponse crearVenta(CrearVentaRequest ventaDto);
 
     /**
      * Obtiene todas las ventas.
      * 
      * @return Una lista con todas las ventas.
      */
-    List<VentaDto> obtenerVentas();
+    List<VentaResponse> obtenerVentas();
 
     /**
      * Obtiene una venta por su ID.
@@ -27,7 +29,7 @@ public interface IVentaService {
      * @param id El ID de la venta.
      * @return La venta encontrada o null si no se encuentra.
      */
-    VentaDto obtenerVentaPorId(Long id);
+    VentaResponse obtenerVentaPorId(Long id);
 
     /**
      * Obtiene las ventas de una sucursal en una fecha específica.
@@ -36,7 +38,7 @@ public interface IVentaService {
      * @param fecha      La fecha de las ventas.
      * @return Una lista con las ventas encontradas.
      */
-    List<VentaDto> obtenerVentasPorSucursalYFecha(Long sucursalId, LocalDate fecha);
+    List<VentaResponse> obtenerVentasPorSucursalYFecha(Long sucursalId, LocalDate fecha);
 
     /**
      * Actualiza los datos de una venta existente.
@@ -45,7 +47,7 @@ public interface IVentaService {
      * @param ventaDto Los nuevos datos de la venta.
      * @return La venta actualizada.
      */
-    VentaDto actualizarVenta(Long id, VentaDto ventaDto);
+    VentaResponse actualizarVenta(Long id, ActualizarVentaRequest ventaDto);
 
     /**
      * Elimina una venta por su ID.
