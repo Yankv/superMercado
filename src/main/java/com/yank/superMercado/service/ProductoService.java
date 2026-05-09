@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.yank.superMercado.dto.ProductoDto;
+import com.yank.superMercado.dto.request.ProductoRequest;
+import com.yank.superMercado.dto.response.ProductoResponse;
 import com.yank.superMercado.exception.NotFoundException;
 import com.yank.superMercado.mapper.ProductoMapper;
 import com.yank.superMercado.model.Producto;
@@ -19,7 +20,7 @@ public class ProductoService implements IProductoService {
     private final ProductoMapper mapper;
 
     @Override
-    public ProductoDto crearProducto(ProductoDto productoDto) {
+    public ProductoResponse crearProducto(ProductoRequest productoDto) {
         // Mapear el DTO a la entidad
         Producto producto = mapper.toEntity(productoDto);
         // Guardar, mapear y retornar el producto
@@ -27,7 +28,7 @@ public class ProductoService implements IProductoService {
     }
 
     @Override
-    public List<ProductoDto> obtenerProductos() {
+    public List<ProductoResponse> obtenerProductos() {
         // Obtener todos los productos de la base de datos
         List<Producto> productos = repository.findAll();
         // Mapear y retornar los productos a DTOs
@@ -35,7 +36,7 @@ public class ProductoService implements IProductoService {
     }
 
     @Override
-    public ProductoDto obtenerProductoPorId(Long id) {
+    public ProductoResponse obtenerProductoPorId(Long id) {
         // Obtener el producto por ID
         Producto producto = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("No se encontró producto con ID: " + id));
@@ -45,7 +46,7 @@ public class ProductoService implements IProductoService {
     }
 
     @Override
-    public ProductoDto actualizarProducto(Long id, ProductoDto productoDto) {
+    public ProductoResponse actualizarProducto(Long id, ProductoRequest productoDto) {
         // Obtener el producto existente
         Producto productoExistente = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("No se encontró producto con ID: " + id));

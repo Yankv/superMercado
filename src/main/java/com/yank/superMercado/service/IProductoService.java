@@ -2,7 +2,8 @@ package com.yank.superMercado.service;
 
 import java.util.List;
 
-import com.yank.superMercado.dto.ProductoDto;
+import com.yank.superMercado.dto.request.ProductoRequest;
+import com.yank.superMercado.dto.response.ProductoResponse;
 
 public interface IProductoService {
     /**
@@ -11,14 +12,14 @@ public interface IProductoService {
      * @param productoDto Los datos del prodcuto a crear.
      * @return productoDto creado.
      */
-    ProductoDto crearProducto(ProductoDto productoDto);
+    ProductoResponse crearProducto(ProductoRequest productoDto);
 
     /**
      * Obtiene una lista de todos los productos disponibles.
      * 
      * @return Lista con los productos encontrados.
      */
-    List<ProductoDto> obtenerProductos();
+    List<ProductoResponse> obtenerProductos();
 
     /**
      * Obtiene un producto por su ID.
@@ -26,7 +27,7 @@ public interface IProductoService {
      * @param id ID del producto a buscar.
      * @return Producto encontrado.
      */
-    ProductoDto obtenerProductoPorId(Long id);
+    ProductoResponse obtenerProductoPorId(Long id);
 
     /**
      * Actualiza un producto existente.
@@ -35,7 +36,7 @@ public interface IProductoService {
      * @param productoDto Datos del producto a actualizar.
      * @return Producto actualizado.
      */
-    ProductoDto actualizarProducto(Long id, ProductoDto productoDto);
+    ProductoResponse actualizarProducto(Long id, ProductoRequest productoDto);
 
     /**
      * Elimina un producto por su ID.

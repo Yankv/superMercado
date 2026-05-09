@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yank.superMercado.dto.ProductoDto;
+import com.yank.superMercado.dto.request.ProductoRequest;
+import com.yank.superMercado.dto.response.ProductoResponse;
 import com.yank.superMercado.service.IProductoService;
 
 import jakarta.validation.Valid;
@@ -26,28 +27,28 @@ public class ProductoController {
     private final IProductoService productoService;
 
     @PostMapping
-    public ResponseEntity<ProductoDto> crearProducto(@Valid @RequestBody ProductoDto productoDto) {
-        ProductoDto producto = productoService.crearProducto(productoDto);
+    public ResponseEntity<ProductoResponse> crearProducto(@Valid @RequestBody ProductoRequest productoDto) {
+        ProductoResponse producto = productoService.crearProducto(productoDto);
         return ResponseEntity.created(URI.create("/api/productos/" + producto.getId()))
                 .body(producto);
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductoDto>> obtenerProductos() {
-        List<ProductoDto> productos = productoService.obtenerProductos();
+    public ResponseEntity<List<ProductoResponse>> obtenerProductos() {
+        List<ProductoResponse> productos = productoService.obtenerProductos();
         return ResponseEntity.ok(productos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductoDto> obtenerProductoPorId(@PathVariable Long id) {
-        ProductoDto producto = productoService.obtenerProductoPorId(id);
+    public ResponseEntity<ProductoResponse> obtenerProductoPorId(@PathVariable Long id) {
+        ProductoResponse producto = productoService.obtenerProductoPorId(id);
         return ResponseEntity.ok(producto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductoDto> actualizarProducto(@PathVariable Long id,
-            @Valid @RequestBody ProductoDto productoDto) {
-        ProductoDto producto = productoService.actualizarProducto(id, productoDto);
+    public ResponseEntity<ProductoResponse> actualizarProducto(@PathVariable Long id,
+            @Valid @RequestBody ProductoRequest productoDto) {
+        ProductoResponse producto = productoService.actualizarProducto(id, productoDto);
         return ResponseEntity.ok(producto);
     }
 

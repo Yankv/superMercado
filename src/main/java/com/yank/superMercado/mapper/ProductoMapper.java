@@ -5,7 +5,8 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.yank.superMercado.dto.ProductoDto;
+import com.yank.superMercado.dto.request.ProductoRequest;
+import com.yank.superMercado.dto.response.ProductoResponse;
 import com.yank.superMercado.model.Producto;
 
 @Mapper(componentModel = "spring")
@@ -17,7 +18,8 @@ public interface ProductoMapper {
      * @return Producto
      */
     @Mapping(target = "detallesVenta", ignore = true)
-    Producto toEntity(ProductoDto dto);
+    @Mapping(target = "id", ignore = true)
+    Producto toEntity(ProductoRequest dto);
 
     /**
      * Convierte un Producto a un ProductoDto
@@ -25,7 +27,7 @@ public interface ProductoMapper {
      * @param entity
      * @return ProductoDto
      */
-    ProductoDto toDto(Producto entity);
+    ProductoResponse toDto(Producto entity);
 
     /**
      * Convierte una lista de Producto a una lista de ProductoDto
@@ -33,5 +35,5 @@ public interface ProductoMapper {
      * @param entities
      * @return List<ProductoDto>
      */
-    List<ProductoDto> toDtoList(List<Producto> entities);
+    List<ProductoResponse> toDtoList(List<Producto> entities);
 }

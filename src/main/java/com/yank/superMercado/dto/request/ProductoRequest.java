@@ -1,4 +1,4 @@
-package com.yank.superMercado.dto;
+package com.yank.superMercado.dto.request;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -13,9 +13,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductoDto {
-    private Long id;
-    
+public class ProductoRequest {
     @NotBlank(message = "El nombre del producto no puede estar vacío")
     private String nombre;
 
