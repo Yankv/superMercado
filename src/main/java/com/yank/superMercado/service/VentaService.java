@@ -9,6 +9,7 @@ import com.yank.superMercado.dto.request.ActualizarVentaRequest;
 import com.yank.superMercado.dto.request.CrearVentaRequest;
 import com.yank.superMercado.dto.response.VentaResponse;
 import com.yank.superMercado.enums.EstadoVenta;
+import com.yank.superMercado.exception.InsufficientStockException;
 import com.yank.superMercado.exception.NotFoundException;
 import com.yank.superMercado.mapper.DetalleVentaMapper;
 import com.yank.superMercado.mapper.VentaMapper;
@@ -50,6 +51,16 @@ public class VentaService implements IVentaService {
                         Producto producto = productoRepository.findById(detalleDto.getProductoId())
                                 .orElseThrow(() -> new NotFoundException(
                                         "No se encontró el producto con ID: " + detalleDto.getProductoId()));
+
+                        // Validar que el producto tenga stock suficiente
+                        var nuevoStock = producto.getStock() - detalle.getCantidad();
+                        if (nuevoStock < 0) {
+                            throw new InsufficientStockException(
+                                    "El producto " + producto.getId() + " no tiene stock suficiente.");
+                        }
+
+                        // Se actualiza el stock del producto
+                        producto.setStock(nuevoStock);
 
                         detalle.setProducto(producto); // Asignar el producto al detalle
                         detalle.setVenta(venta); // Asignar la venta al detalle
@@ -120,9 +131,8 @@ public class VentaService implements IVentaService {
     @Override
     public void eliminarVenta(Long id) {
         // Verificar si existe la venta a eliminar
-        Venta venta = ventaRepository.findById(id).orElseThrow(() ->
-            new NotFoundException("No se encontró la venta con ID: " + id)
-        );
+        Venta venta = ventaRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("No se encontró la venta con ID: " + id));
 
         // Si existe, cambiar el estado
         venta.setEstado(EstadoVenta.CANCELADA);
