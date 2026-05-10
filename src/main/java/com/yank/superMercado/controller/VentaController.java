@@ -36,7 +36,7 @@ public class VentaController {
                 .body(venta);
     }
 
-    @GetMapping("/todos")
+    @GetMapping
     public ResponseEntity<List<VentaResponse>> obtenerVentas() {
         List<VentaResponse> ventas = ventaService.obtenerVentas();
         return ResponseEntity.ok(ventas);
@@ -47,7 +47,7 @@ public class VentaController {
         return ResponseEntity.ok(ventaService.obtenerVentaPorId(id));
     }
 
-    @GetMapping
+    @GetMapping("/filtrar")
     public ResponseEntity<List<VentaResponse>> obtenerVentasPorSucursalYFecha(
             @RequestParam Long sucursalId,
             @RequestParam LocalDate fecha) {
