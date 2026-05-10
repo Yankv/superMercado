@@ -10,10 +10,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.yank.superMercado.model.Venta;
+import com.yank.superMercado.projection.ResumenVentasProjection;
 
 @Repository
 public interface VentaRepository extends JpaRepository<Venta, Long> {
-
     /**
      * Busca una venta por su id, validando que su estado no sea 'CANCELADA'
      * 
@@ -55,4 +55,18 @@ public interface VentaRepository extends JpaRepository<Venta, Long> {
             AND v.estado <> 'CANCELADA'
             """)
     List<Venta> buscarPorSucursalIdYFecha(@Param("sucursalId") Long sucursalId, @Param("fecha") LocalDate fecha);
+
+    /**
+     * Obtiene un resumen de todas las ventas.
+     * 
+     * @return Total de ventas realizdas y total de ingresos recibidos.
+     */
+    @Query("""
+            SELECT
+                COUNT(v.id) as totalVentas,
+                SUM(v.total) as totalIngresos
+            FROM Venta v
+            WHERE v.estado = 'PAGADA'
+            """)
+    ResumenVentasProjection obtenerResumenVentas();
 }

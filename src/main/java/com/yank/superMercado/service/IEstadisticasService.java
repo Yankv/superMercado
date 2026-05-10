@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.yank.superMercado.dto.response.ProductoTopVentasDto;
 import com.yank.superMercado.dto.response.SucursalTopVentasDto;
+import com.yank.superMercado.dto.response.ResumenVentas;
 
 public interface IEstadisticasService {
     /**
@@ -35,4 +36,11 @@ public interface IEstadisticasService {
      * @return Lista de DTOs con los productos ordenados por volumen de ventas.
      */
     List<ProductoTopVentasDto> obtenerTopProductosMasVendidos(int limite);
+
+    /**
+     * Obtiene un resumen de todas las ventas.
+     * 
+     * @return Total de ventas realizdas y total de ingresos recibidos.
+     */
+    ResumenVentas obtenerResumenVentas();
 }

@@ -8,8 +8,10 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import com.yank.superMercado.dto.request.CrearVentaRequest;
+import com.yank.superMercado.dto.response.ResumenVentas;
 import com.yank.superMercado.dto.response.VentaResponse;
 import com.yank.superMercado.model.Venta;
+import com.yank.superMercado.projection.ResumenVentasProjection;
 
 @Mapper(componentModel = "spring", uses = { DetalleVentaMapper.class })
 public interface VentaMapper {
@@ -62,4 +64,14 @@ public interface VentaMapper {
             venta.setTotal(total);
         }
     }
+
+    /**
+     * Convierte un proyección ResumenVentasProjection en un DTO ResumenVentas
+     * 
+     * @param projection
+     * @return
+     */
+    @Mapping(source = "totalVentas", target = "totalVentas")
+    @Mapping(source = "totalIngresos", target = "totalIngresos")
+    ResumenVentas toResumenVentas(ResumenVentasProjection projection);
 }

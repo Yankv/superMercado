@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yank.superMercado.dto.response.ProductoTopVentasDto;
+import com.yank.superMercado.dto.response.ResumenVentas;
 import com.yank.superMercado.dto.response.SucursalTopVentasDto;
 import com.yank.superMercado.service.IEstadisticasService;
 
@@ -45,5 +46,11 @@ public class EstadisticasController {
             @RequestParam(defaultValue = "10") int limite) {
         List<ProductoTopVentasDto> productos = estadisticasService.obtenerTopProductosMasVendidos(limite);
         return ResponseEntity.ok(productos);
+    }
+
+    @GetMapping("/resumen-ventas")
+    public ResponseEntity<ResumenVentas> obtenerResumenVentas() {
+        ResumenVentas resumen = estadisticasService.obtenerResumenVentas();
+        return ResponseEntity.ok(resumen);
     }
 }
