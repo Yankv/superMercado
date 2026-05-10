@@ -44,7 +44,7 @@ public class Venta {
     @Column(nullable = false)
     private Double total;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sucursal_id")
     private Sucursal sucursal;
 

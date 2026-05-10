@@ -32,7 +32,8 @@ public interface VentaMapper {
      * @param entity La entidad Venta que se va a convertir.
      * @return El objeto VentaResponse resultante.
      */
-    @Mapping(source = "sucursal.nombre", target = "nombreSucursal") // Mapea el ID de la sucursal al campo idSucursal del DTO
+    @Mapping(source = "sucursal.nombre", target = "nombreSucursal") // Mapea el ID de la sucursal al campo idSucursal
+                                                                    // del DTO
     VentaResponse toDto(Venta entity);
 
     /**
@@ -48,7 +49,7 @@ public interface VentaMapper {
      * Calcula el total de la venta sumando los subtotales de todos los detalles
      * y lo asigna a la entidad Venta después del mapeo principal.
      * 
-     * @param dto El objeto CrearVentaRequest con la lista de detalles.
+     * @param dto   El objeto CrearVentaRequest con la lista de detalles.
      * @param venta La entidad Venta a la que se asignará el total.
      */
     // Método para calcular el total después de mapear el DTO a la entidad

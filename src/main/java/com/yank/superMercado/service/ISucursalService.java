@@ -29,6 +29,8 @@ public interface ISucursalService {
      */
     SucursalResponse obtenerSucursalPorId(Long id);
 
+    
+
     /**
      * Actualiza los datos de una sucursal existente.
      * 
