@@ -19,6 +19,7 @@ import com.yank.superMercado.service.IProductoService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/productos")
@@ -57,4 +58,14 @@ public class ProductoController {
         productoService.eliminarProducto(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/filtrar")
+    public ResponseEntity<List<ProductoResponse>> getMethodName(@RequestParam(required = false) String nombre,
+            @RequestParam(required = false) String categoria, @RequestParam(required = false) Double precioMin,
+            @RequestParam(required = false) Double precioMax) {
+        List<ProductoResponse> productos = productoService.obtenerProductosConFiltros(nombre, categoria, precioMin,
+                precioMax);
+        return ResponseEntity.ok(productos);
+    }
+
 }

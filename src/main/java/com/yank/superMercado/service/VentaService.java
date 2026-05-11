@@ -3,6 +3,7 @@ package com.yank.superMercado.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.yank.superMercado.dto.request.ActualizarVentaRequest;
@@ -19,6 +20,7 @@ import com.yank.superMercado.model.Venta;
 import com.yank.superMercado.repository.ProductoRepository;
 import com.yank.superMercado.repository.SucursalRepository;
 import com.yank.superMercado.repository.VentaRepository;
+import com.yank.superMercado.repository.VentaSpecification;
 
 import lombok.RequiredArgsConstructor;
 
@@ -97,7 +99,14 @@ public class VentaService implements IVentaService {
 
     @Override
     public List<VentaResponse> obtenerVentasPorSucursalYFecha(Long sucursalId, LocalDate fecha) {
-        var ventas = ventaRepository.buscarPorSucursalIdYFecha(sucursalId, fecha);
+        // var ventas = ventaRepository.buscarPorSucursalIdYFecha(sucursalId, fecha);
+        Specification<Venta> spec = Specification
+                .where(VentaSpecification.estadoNoEsCancelada())
+                .and(VentaSpecification.porSucursal(sucursalId))
+                .and(VentaSpecification.porFecha(fecha));
+        
+        List<Venta> ventas = ventaRepository.findAll(spec);
+
         if (ventas.isEmpty()) {
             throw new NotFoundException(
                     "No se encontraron ventas para la sucursal con ID: " + sucursalId + " en la fecha: " + fecha);

@@ -44,4 +44,6 @@ public interface IProductoService {
      * @param id ID del producto a eliminar.
      */
     void eliminarProducto(Long id);
+
+    List<ProductoResponse> obtenerProductosConFiltros(String nombre, String categoria, Double precioMin, Double precioMax);
 }

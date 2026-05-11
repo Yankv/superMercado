@@ -71,4 +71,12 @@ public class ProductoService implements IProductoService {
         // Si existe, eliminar el producto
         repository.deleteById(id);
     }
+
+    @Override
+    public List<ProductoResponse> obtenerProductosConFiltros(String nombre, String categoria, Double precioMin,
+            Double precioMax) {
+        List<Producto> productos = repository.buscarConFiltros(nombre, categoria, precioMin, precioMax);
+
+        return mapper.toDtoList(productos);
+    }
 }

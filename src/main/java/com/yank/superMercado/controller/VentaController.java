@@ -49,8 +49,8 @@ public class VentaController {
 
     @GetMapping("/filtrar")
     public ResponseEntity<List<VentaResponse>> obtenerVentasPorSucursalYFecha(
-            @RequestParam Long sucursalId,
-            @RequestParam LocalDate fecha) {
+            @RequestParam(required = false) Long sucursalId,
+            @RequestParam(required = false) LocalDate fecha) {
         List<VentaResponse> ventas = ventaService.obtenerVentasPorSucursalYFecha(sucursalId, fecha);
         return ResponseEntity.ok(ventas);
     }
