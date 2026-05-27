@@ -3,12 +3,15 @@ package com.yank.superMercado.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.yank.superMercado.model.Producto;
 import com.yank.superMercado.projection.ProductoTopVentasProjection;
+
+import jakarta.transaction.Transactional;
 
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Long>, ProductoRepositoryC {
@@ -30,4 +33,13 @@ public interface ProductoRepository extends JpaRepository<Producto, Long>, Produ
             LIMIT :limite
             """)
     List<ProductoTopVentasProjection> findTopProductosMasVendidos(@Param("limite") int limite);
+
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query("""
+            UPDATE Producto p
+            SET p.stock = :stock
+            WHERE p.id = :id
+            """)
+    int actualizarStock(@Param("id") Long id, @Param("stock") Integer stock);
 }

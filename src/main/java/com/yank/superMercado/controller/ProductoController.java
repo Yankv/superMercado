@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -60,7 +61,7 @@ public class ProductoController {
     }
 
     @GetMapping("/filtrar")
-    public ResponseEntity<List<ProductoResponse>> getMethodName(@RequestParam(required = false) String nombre,
+    public ResponseEntity<List<ProductoResponse>> obtenerProductosConFiltros(@RequestParam(required = false) String nombre,
             @RequestParam(required = false) String categoria, @RequestParam(required = false) Double precioMin,
             @RequestParam(required = false) Double precioMax) {
         List<ProductoResponse> productos = productoService.obtenerProductosConFiltros(nombre, categoria, precioMin,
@@ -68,4 +69,13 @@ public class ProductoController {
         return ResponseEntity.ok(productos);
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> actualizarStock(@PathVariable Long id, @RequestParam Integer stock) {
+        boolean response = productoService.actualizarStock(id, stock);
+        if (response) {
+            return ResponseEntity.ok("Stock actualizado correctamente");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

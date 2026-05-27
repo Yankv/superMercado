@@ -79,4 +79,14 @@ public class ProductoService implements IProductoService {
 
         return mapper.toDtoList(productos);
     }
+
+    @Override
+    public boolean actualizarStock(Long id, Integer stock) {
+        if (!repository.existsById(id)) {
+            throw new NotFoundException("No se encontró producto con ID: " + id);
+        }
+        int resultado = repository.actualizarStock(id, stock);
+
+        return resultado > 0;
+    }
 }

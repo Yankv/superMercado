@@ -46,4 +46,6 @@ public interface IProductoService {
     void eliminarProducto(Long id);
 
     List<ProductoResponse> obtenerProductosConFiltros(String nombre, String categoria, Double precioMin, Double precioMax);
+
+    boolean actualizarStock(Long id, Integer stock);
 }

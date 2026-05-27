@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: superMercado
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - super-mercado-network
+
+  app:
+    build: .
+    container_name: super-mercado-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_started
+    environment:
+      - DB_URL=jdbc:postgresql://postgres:5432/superMercado
+      - DB_USER_NAME=admin
+      - DB_PASSWORD=admin123
+      - SERVER_PORT=8080
+    networks:
+      - super-mercado-network
+    restart: on-failure
+
+volumes:
+  postgres_data:
+
+networks:
+  super-mercado-network:
+    driver: bridge
+      
